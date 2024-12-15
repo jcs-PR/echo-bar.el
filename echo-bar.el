@@ -40,9 +40,12 @@
 (require 'overlay)
 (require 'seq)
 
-;; TODO: Used in function `echo-bar--string-pixel-width';
-;; remove it after 29.1
-(eval-when-compile (require 'shr))
+;; Compiler pacifier
+(defvar overflow-newline-into-fringe)
+(defvar after-focus-change-function)
+(defvar window-state-change-hook)
+(declare-function string-pixel-width "subr-x.el")
+(declare-function shr-string-pixel-width "shr.el")  ; TODO: remove this after 29.1
 
 (defgroup echo-bar nil
   "Display text at the end of the echo area."
