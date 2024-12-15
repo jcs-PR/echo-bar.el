@@ -195,9 +195,17 @@ If nil, don't update the echo bar automatically."
 
           (with-current-buffer (overlay-buffer o)
             ;; Wrap the text to the next line if the echo bar text is too long
-            (if (> (mod (point-max) (frame-width)) max-len)
-                (overlay-put o 'after-string (concat "\n" echo-bar-text))
-              (overlay-put o 'after-string echo-bar-text)))))
+            ;;
+            ;; Handle multiple lines; therefore, We only need to consider the
+            ;; last line.
+            (let* ((last-line (save-excursion
+                                (goto-char (point-max))
+                                (thing-at-point 'line)))
+                   (max-width (or (echo-bar--str-len last-line)
+                                  (point-max))))  ; fallback
+              (if (> (mod max-width (frame-width)) max-len)
+                  (overlay-put o 'after-string (concat "\n" echo-bar-text))
+                (overlay-put o 'after-string echo-bar-text))))))
 
       (with-current-buffer " *Minibuf-0*"
         ;; If the minibuffer is not Minibuf-0, then the user is using the minibuffer
