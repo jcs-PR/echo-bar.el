@@ -40,6 +40,13 @@
 (require 'overlay)
 (require 'seq)
 
+;; Compiler pacifier
+(defvar overflow-newline-into-fringe)
+(defvar after-focus-change-function)
+(defvar window-state-change-hook)
+(declare-function string-pixel-width "subr-x.el")
+(declare-function shr-string-pixel-width "shr.el")  ; TODO: remove this after 29.1
+
 (defgroup echo-bar nil
   "Display text at the end of the echo area."
   :group 'applications)
@@ -92,7 +99,6 @@ If nil, don't update the echo bar automatically."
   (declare (indent 0) (debug t))
   `(let ((inhibit-redisplay t)
          (inhibit-modification-hooks t)
-         (inhibit-point-motion-hooks t)
          after-focus-change-function
          buffer-list-update-hook
          display-buffer-alist
