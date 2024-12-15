@@ -40,6 +40,10 @@
 (require 'overlay)
 (require 'seq)
 
+;; TODO: Used in function `echo-bar--string-pixel-width';
+;; remove it after 29.1
+(eval-when-compile (require 'shr))
+
 (defgroup echo-bar nil
   "Display text at the end of the echo area."
   :group 'applications)
@@ -92,7 +96,6 @@ If nil, don't update the echo bar automatically."
   (declare (indent 0) (debug t))
   `(let ((inhibit-redisplay t)
          (inhibit-modification-hooks t)
-         (inhibit-point-motion-hooks t)
          after-focus-change-function
          buffer-list-update-hook
          display-buffer-alist
