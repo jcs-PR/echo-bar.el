@@ -200,7 +200,7 @@ If nil, don't update the echo bar automatically."
             ;; last line.
             (let* ((last-line (save-excursion
                                 (goto-char (point-max))
-                                (thing-at-point 'line)))
+                                (thing-at-point 'line t)))
                    (max-width (or (echo-bar--str-len last-line)
                                   (point-max))))  ; fallback
               (if (> (mod max-width (frame-width)) max-len)
